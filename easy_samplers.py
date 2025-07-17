@@ -56,6 +56,18 @@ class LTXVBaseSampler:
                 "noise": ("NOISE", {"tooltip": "The noise to use for the sampling."}),
             },
             "optional": {
+                "dynamic_width": (
+                    "INT",
+                    {
+                        "tooltip": "If provided, this width will override the width parameter."
+                    },
+                ),
+                "dynamic_height": (
+                    "INT",
+                    {
+                        "tooltip": "If provided, this height will override the height parameter."
+                    },
+                ),
                 "optional_cond_images": (
                     "IMAGE",
                     {"tooltip": "The images to use for conditioning the sampling."},
@@ -119,6 +131,8 @@ class LTXVBaseSampler:
         sampler,
         sigmas,
         noise,
+        dynamic_width=None,
+        dynamic_height=None,
         optional_cond_images=None,
         optional_cond_indices=None,
         strength=0.9,
@@ -130,6 +144,11 @@ class LTXVBaseSampler:
         optional_negative_index_strength=1.0,
         optional_initialization_latents=None,
     ):
+        # Override width and height if dynamic values are provided
+        if dynamic_width is not None:
+            width = dynamic_width
+        if dynamic_height is not None:
+            height = dynamic_height
 
         if optional_cond_images is not None:
             optional_cond_images = (

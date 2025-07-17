@@ -1,4 +1,5 @@
 from .decoder_noise import DecoderNoise
+from .dynamic_resolution import LTX_DynamicResolutionSelector
 from .easy_samplers import (
     LinearOverlapLatentTransition,
     LTXVBaseSampler,
@@ -60,6 +61,7 @@ NODE_CLASS_MAPPINGS = {
     "STGGuiderNode": STGGuiderNode,
     "LTXVMultiPromptProvider": MultiPromptProvider,
     "ImageToCPU": ImageToCPU,
+    "LTX_DynamicResolutionSelector": LTX_DynamicResolutionSelector,
 }
 
 # Consistent display names between static and dynamic node mappings in nodes_registry.py,
@@ -68,6 +70,9 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     name: f"{NODES_DISPLAY_NAME_PREFIX} {camel_case_to_spaces(name)}"
     for name in NODE_CLASS_MAPPINGS.keys()
 }
+
+# Add custom display name for our new node
+NODE_DISPLAY_NAME_MAPPINGS["LTX_DynamicResolutionSelector"] = "LTX Dynamic Resolution Selector"
 
 # Merge the node mappings from tricks into the main mappings
 NODE_CLASS_MAPPINGS.update(TRICKS_NODE_CLASS_MAPPINGS)
